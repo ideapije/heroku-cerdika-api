@@ -2,6 +2,7 @@
 
 namespace Modules\Membership;
 
+use App\Models\MemberSubmission;
 use App\Models\User;
 use Illuminate\Auth\MustVerifyEmail;
 
@@ -18,5 +19,10 @@ class Account extends User
     public function scopeLatest($query)
     {
         return $query->orderBy('created_at', 'desc');
+    }
+
+    public function submissions()
+    {
+        return $this->hasMany(MemberSubmission::class, 'user_id', 'id');
     }
 }

@@ -11,19 +11,17 @@ class Member extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'uuid',
-        'first_name',
-        'last_name',
-        'phone',
-        'image',
-        'address',
-        'state',
-        'province',
-        'city',
-        'subdistrict',
-        'gender'
+        'uuid', 'first_name', 'last_name',
+        'phone', 'image', 'address',
+        'state', 'province', 'city',
+        'subdistrict', 'gender', 'old',
+        'education', 'height_body', 'weight_body'
     ];
-    protected $hidden = ['created_at', 'updated_at', 'user_id'];
+    protected $hidden = [
+        'created_at', 'updated_at', 'user_id',
+        'phone', 'image', 'address',
+        'state', 'province', 'city', 'subdistrict'
+    ];
     protected $appends = ['image_url'];
 
     public function getRouteKeyName()
