@@ -2,6 +2,7 @@
 
 namespace Modules\Membership;
 
+use App\Models\BloodMeasure;
 use App\Models\MemberSubmission;
 use App\Models\User;
 use Illuminate\Auth\MustVerifyEmail;
@@ -24,5 +25,10 @@ class Account extends User
     public function submissions()
     {
         return $this->hasMany(MemberSubmission::class, 'user_id', 'id');
+    }
+
+    public function bloodMeasures()
+    {
+        return $this->hasMany(BloodMeasure::class, 'user_id', 'id');
     }
 }

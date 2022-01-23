@@ -15,6 +15,6 @@ class Choice extends Model
 
     public function questions()
     {
-        return $this->belongsToMany(Question::class)->using(ChoiceQuestion::class);
+        return $this->belongsToMany(Question::class)->using(ChoiceQuestion::class)->withPivot('score');
     }
 }

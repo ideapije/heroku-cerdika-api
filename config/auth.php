@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Membership\Account;
+
 return [
 
     /*
@@ -66,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => Account::class,
         ],
 
         // 'users' => [
