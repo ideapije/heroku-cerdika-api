@@ -17,19 +17,20 @@ class LogbookController extends Controller
 
     public function create(Request $request, Member $member)
     {
-        $questions = Question::where('group', 'logbook')->with(['choices'])->get();
-        return view('logbook.create', compact('member', 'questions'));
+        $group = $request->g ?? 'logbook';
+        $questions = Question::where('group', $group)->with(['choices'])->get();
+        return view('logbook.create', compact('member', 'questions', 'group'));
     }
 
     public function store(LogbookStore $request, Member $member)
     {
         $isSubmitted = $member->user
             ->submissions()
-            ->where(function ($query) {
+            ->where(function ($query) use($request) {
                 $query
                     ->whereDate('created_at', Carbon::now())
-                    ->whereHas('question', function ($subQ) {
-                        $subQ->where('group', 'logbook');
+                    ->whereHas('question', function ($subQ) use($request) {
+                        $subQ->where('group', $request->g ?? 'logbook');
                     });
             })
             ->first();

@@ -6,6 +6,7 @@
         <div class="col-md-6 offset-md-3">
             <form action="{{ route('cerdika.logbook.store', $member) }}" method="POST">
                 @csrf
+                <input type="hidden" value="{{ $group }}" name="g" />
                 @foreach ($questions as $key => $question)
                 <div class="form-group">
                     <label for="ques{{ $question->id }}">{{ $question->text }}</label>
