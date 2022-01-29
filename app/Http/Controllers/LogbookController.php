@@ -22,13 +22,27 @@ class LogbookController extends Controller
         Carbon::setLocale('id');
         $dateSubmitted = Carbon::parse($request->get('d'))->isoFormat('dddd, D MMMM Y');
         $params = $request->all();
-        $submissions = $member->user->submissions()->where(function ($query) use ($request) {
-            $query->whereDate('created_at', $request->d)
-                ->whereHas('question', function ($subQuery) use ($request) {
-                    $subQuery->where('group', $request->g);
-                });
-        })->get();
-        return view('logbook.show', compact('member', 'submissions', 'params', 'dateSubmitted'));
+        $submissions = $member->user->submissions()
+            ->where(function ($query) use ($request) {
+                $query->whereDate('created_at', $request->d)
+                    ->whereHas('question', function ($subQuery) use ($request) {
+                        $subQuery->where('group', $request->g);
+                    });
+            })
+            ->with(['question.choices'])
+            ->get();
+        $resultValue = collect($submissions)->map(function ($item) {
+            $score = $item->question->choices()->where('choice_id', $item->choice_id)->first();
+            return $score->pivot->score;
+        })->sum();
+        $result = "RENDAH";
+        if ($resultValue >= 8) {
+            $result = "TINGGI";
+        }
+        if ($resultValue > 5 && $resultValue <= 7) {
+            $result = "SEDANG";
+        }
+        return view('logbook.show', compact('member', 'submissions', 'params', 'dateSubmitted', 'result'));
     }
 
     public function create(Request $request, Member $member)

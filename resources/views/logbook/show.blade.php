@@ -6,8 +6,13 @@
         <div class="col-md-6 offset-md-3">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <small>Kepatuhan</small>
-                    <h1 class="display-4">{{ $result ?? 'RENDAH' }}</h1>
+                    @if ($params['g'] === 'kepatuhan')
+                        <small>Kepatuhan</small>
+                        <h1 class="display-4">{{ $result ?? 'RENDAH' }}</h1>
+                    @else
+                        <small>Detail</small>
+                        <h1 class="display-4">LOGBOOK</h1>
+                    @endif
                     <p class="lead">{{ $params['g'] === 'logbook' ? 'Logbook Kegiatan' : 'Kepatuhan minum obat' }} disubmit pada</p>
                     <p>{{ $dateSubmitted }}</p>
                 </div>
