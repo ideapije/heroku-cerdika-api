@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LogbookShow;
 use App\Http\Requests\LogbookStore;
 use App\Models\Question;
 use Carbon\Carbon;
@@ -12,7 +13,22 @@ class LogbookController extends Controller
 {
     public function index(Request $request, Member $member)
     {
-        return 'Thanks!';
+        return view('logbook.index', compact('member'));
+    }
+
+    public function show(LogbookShow $request, Member $member)
+    {
+        setlocale(LC_TIME, 'id_ID');
+        Carbon::setLocale('id');
+        $dateSubmitted = Carbon::parse($request->get('d'))->isoFormat('dddd, D MMMM Y');
+        $params = $request->all();
+        $submissions = $member->user->submissions()->where(function ($query) use ($request) {
+            $query->whereDate('created_at', $request->d)
+                ->whereHas('question', function ($subQuery) use ($request) {
+                    $subQuery->where('group', $request->g);
+                });
+        })->get();
+        return view('logbook.show', compact('member', 'submissions', 'params', 'dateSubmitted'));
     }
 
     public function create(Request $request, Member $member)
@@ -26,10 +42,10 @@ class LogbookController extends Controller
     {
         $isSubmitted = $member->user
             ->submissions()
-            ->where(function ($query) use($request) {
+            ->where(function ($query) use ($request) {
                 $query
                     ->whereDate('created_at', Carbon::now())
-                    ->whereHas('question', function ($subQ) use($request) {
+                    ->whereHas('question', function ($subQ) use ($request) {
                         $subQ->where('group', $request->g ?? 'logbook');
                     });
             })

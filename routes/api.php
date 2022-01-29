@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\BloodMeasureApiController;
+use App\Http\Controllers\API\CalendarApiController;
 use App\Http\Controllers\API\QuestionApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,4 +30,8 @@ Route::group(['prefix' => 'questions', 'middleware' => 'auth:api'], function () 
 Route::group(['prefix' => 'blood-measure', 'middleware' => 'auth:api'], function () {
     Route::get('/', [BloodMeasureApiController::class, 'index'])->name('api.blood-measure.index');
     Route::post('/', [BloodMeasureApiController::class, 'store'])->name('api.blood-measure.store');
+});
+
+Route::group(['prefix' => 'cerdika'], function(){
+    Route::get('calendar/{member}', [CalendarApiController::class, 'index'])->name('api.cerdika.calendar.index');
 });

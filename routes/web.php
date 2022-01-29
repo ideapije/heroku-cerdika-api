@@ -28,4 +28,5 @@ Route::group(['prefix' => 'cerdika'], function(){
     Route::get('logbook/{member}/index', [LogbookController::class, 'index'])->name('cerdika.logbook.index');
     Route::get('logbook/{member}/create', [LogbookController::class, 'create'])->name('cerdika.logbook.create');
     Route::post('logbook/{member}/create', [LogbookController::class, 'store'])->name('cerdika.logbook.store');
+    Route::get('logbook/{member}/show', [LogbookController::class, 'show'])->name('cerdika.logbook.show');
 });
