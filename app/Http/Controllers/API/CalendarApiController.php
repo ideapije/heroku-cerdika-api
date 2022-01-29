@@ -21,8 +21,7 @@ class CalendarApiController extends Controller
                 ]),
                 'title' => $item->question->group === 'logbook' ? 'LOGBOOK KEGIATAN' : 'KEPATUHAN MINUM OBAT',
                 'start' => $item->created_at->format('Y-m-d'),
-                'color' => $item->question->group === 'logbook' ? 'purple' : 'green',
-                'event_color'
+                'color' => $item->question->group === 'logbook' ? 'purple' : 'green'
             ]);
         });
         return response()->json($dates);

@@ -11,8 +11,12 @@
         font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
         font-size: 14px;
     }
-    .fc .fc-daygrid-day.fc-day-today{
+
+    .fc .fc-daygrid-day.fc-day-today {
         background-color: #fff176 !important;
+    }
+    .fc .fc-toolbar {        
+        line-height: 45px;
     }
 </style>
 @endpush
@@ -34,7 +38,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         let calendarEl = document.getElementById('calendar');
         let calendar = new FullCalendar.Calendar(calendarEl, {
-            timeZone: 'UTC',
+            timeZone: 'Asia/Jakarta',
             themeSystem: 'bootstrap',
             headerToolbar: {
                 left: 'prev,next today',
@@ -46,6 +50,14 @@
             events: '<?= route("api.cerdika.calendar.index", $member) ?>'
         });
         calendar.render();
+    });
+    // add the responsive classes after page initialization
+    window.onload = function () {
+        $('.fc-toolbar.fc-header-toolbar').addClass('row col-lg-12');
+    };
+    // add the responsive classes when navigating with calendar buttons
+    $(document).on('click', '.fc-button', function(e) {
+        $('.fc-toolbar.fc-header-toolbar').addClass('row col-lg-12');
     });
 </script>
 @endpush
