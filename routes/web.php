@@ -30,3 +30,8 @@ Route::group(['prefix' => 'cerdika'], function(){
     Route::post('logbook/{member}/create', [LogbookController::class, 'store'])->name('cerdika.logbook.store');
     Route::get('logbook/{member}/show', [LogbookController::class, 'show'])->name('cerdika.logbook.show');
 });
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
