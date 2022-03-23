@@ -9,6 +9,9 @@ use Modules\Membership\Account;
 class BloodMeasure extends Model
 {
     use HasFactory;
+
+    public $allow_export_all = true;
+    
     protected $fillable = [
         'user_id', 'date_sistolik', 'sistolik',
         'date_diastolik', 'diastolik'

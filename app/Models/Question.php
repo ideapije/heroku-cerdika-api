@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
+    
+    public $allow_export_all = true;
     protected $fillable = ['text', 'group'];
     protected $hidden = [
         'created_at', 'updated_at'

@@ -10,6 +10,9 @@ use Modules\Membership\MemberIdentity;
 class Member extends Model
 {
     use HasFactory;
+
+    public $allow_export_all = true;
+    
     protected $fillable = [
         'uuid', 'first_name', 'last_name',
         'phone', 'image', 'address',

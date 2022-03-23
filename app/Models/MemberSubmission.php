@@ -9,6 +9,9 @@ use Modules\Membership\Account;
 class MemberSubmission extends Model
 {
     use HasFactory;
+
+    public $allow_export_all = true;
+
     protected $fillable = [
         'user_id',
         'question_id',

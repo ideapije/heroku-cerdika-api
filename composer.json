@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.5",
         "modules/membership": "1.0-dev",
         "silviolleite/laravelpwa": "^2.0",
-        "tcg/voyager": "^1.5"
+        "tcg/voyager": "^1.5",
+        "tu6ge/voyager-excel": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

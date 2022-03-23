@@ -13,6 +13,7 @@ class User extends \TCG\Voyager\Models\User
 {
     use HasFactory, Notifiable, HasApiTokens;
 
+    public $allow_export_all = true;
     /**
      * The attributes that are mass assignable.
      *
